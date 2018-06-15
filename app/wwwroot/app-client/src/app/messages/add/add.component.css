@@ -1,0 +1,36 @@
+/* Для расположения элементов в ряд */
+.float-left {
+	float: left;
+}
+
+.input-text {
+	border-radius: 8px;			/* Скругление углов */
+	background: #f0f0f0;	  /* Цвет фона */
+    border: 1px solid black;  /* Параметры рамки */
+	padding: 10px; 			    /* Поля вокруг текста */
+	margin-right: 5px; 			/* Отступ с правого края */
+}
+
+.input-text:focus {
+	border-radius: 0px;
+}
+
+.input-text.name {
+	width: 100px;
+}
+
+.input-text.text {
+	width: 200px;
+}
+
+.btn-send {
+	cursor: pointer;
+	margin-top: -5px;
+	padding: 8px;
+	border: 1px solid #7a7b7e; /* Параметры рамки */
+	border-radius: 25px;		 /* Скругление углов */
+}
+
+.btn-send:hover {
+	background: rgb(250, 255, 189);
+}

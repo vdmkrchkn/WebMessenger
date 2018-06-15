@@ -1,0 +1,9 @@
+<form>
+	<input type="text" name="userName" placeholder="Ваше имя" class="input-text name float-left"
+		[(ngModel)]="newMsg.userName" />
+	<input type="text" name="text" placeholder="Введите текст" class="input-text text float-left"
+		[(ngModel)]="newMsg.text" />
+	<div [hidden]="!newMsg.isValid()" (click)="add()" class="btn-send float-left">
+		<img src="./assets/email.png" alt="Отправить">
+	</div>
+</form>

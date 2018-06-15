@@ -23,11 +23,24 @@ module.exports = function (config) {
       environment: 'dev'
     },
     reporters: ['progress', 'kjhtml'],
-    port: 9876,
+    port: 4201,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
+	browsers: ['Chrome'],
+	customLaunchers: {
+		ChromeNoSandboxHeadless: {
+		   base: 'Chrome',
+		   flags: [
+			 '--no-sandbox',
+			 // See https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+			 '--headless',
+			 '--disable-gpu',
+			 // Without a remote debugging port, Google Chrome exits immediately.
+			 ' --remote-debugging-port=9222',
+		   ],
+		 },
+	},
+    singleRun: true
   });
 };
