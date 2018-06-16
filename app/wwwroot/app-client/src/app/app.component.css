@@ -1,0 +1,6 @@
+/* Класс, задающий положение окна чата на странице. */
+.main-window {
+    position: absolute;
+	left: 35%;
+	min-width: 500px;
+}
