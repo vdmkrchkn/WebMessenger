@@ -1,41 +1,54 @@
-﻿using System.Collections.Generic;
+using app.Models;
+using app.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace app.Controllers
 {
     [Route("api/[controller]")]
     public class MessagesController : Controller
     {
+        #region Dependencies
+
+        private readonly IMessageService _msgService;
+
+        #endregion Dependencies
+
+        #region Ctor
+
+        public MessagesController(IMessageService msgService)
+        {
+            _msgService = msgService;                        
+        }
+
+        #endregion Ctor
+
         // GET api/messages
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "message1", "message2" };
+        public IEnumerable<Message> Get()
+        {            
+            return _msgService?.GetMessages(2);
         }
 
         // GET api/messages/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "message";
+            throw new NotImplementedException("not realized");
         }
 
-        // POST api/messages
+        // POST api/add !!!
         [HttpPost]
-        public void Post([FromBody]string message)
+        public IActionResult Add([FromBody]Message newMessage)
         {
-        }
+			if (newMessage == null)
+			{
+				return BadRequest();
+			}
 
-        // PUT api/messages/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string message)
-        {
-        }
-
-        // DELETE api/messages/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+			_msgService.Add(newMessage);
+			return Ok();
+        }        
     }
 }

@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+using app.Context;
+using app.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +21,17 @@ namespace app
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            string providerDB = Configuration.GetSection("DBProvider").Value;
+            if (providerDB.Equals("MySQL"))
+            {
+                var connection = Configuration.GetConnectionString("MySqlConnection");
+                services.AddDbContext<EFDbContext>(options => options.UseMySql(connection));
+            }
+            // Add client services.
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IMessageService, MessageService>();
+            // Add framework services.
+            services.AddMvc();			
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -26,9 +40,17 @@ namespace app
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
 
-            app.UseMvc();
+				//добавляем сборку через webpack
+				app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+				{
+					HotModuleReplacement = true
+				});
+			}
+
+			app.UseDefaultFiles();
+			app.UseStaticFiles();
+			app.UseMvc();
         }
     }
 }
