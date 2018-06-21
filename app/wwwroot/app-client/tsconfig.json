@@ -1,7 +1,7 @@
 {
 	"compileOnSave": true,
 	"compilerOptions": {
-		"outDir": "./dist/out-tsc",
+		 "outDir": "../public/out-tsc",
 		"sourceMap": true,
 		"declaration": false,
 		"moduleResolution": "node",
@@ -17,7 +17,6 @@
 		]
 	},
 	"exclude": [
-		"node_modules",
-		"dist"
+		"node_modules"		
 	]
 }

@@ -7,10 +7,18 @@
 /.vs
 app/bin/
 app/obj/
-app/wwwroot/app-client/dist
-/dist-server
-/tmp
-/out-tsc
+app/wwwroot/public
+app/wwwroot/app-client/src/*.js
+app/wwwroot/app-client/src/*/*.js
+app/wwwroot/app-client/src/*.map
+app/wwwroot/app-client/src/*/*.map
+#/dist-server
+#/tmp
+#/out-tsc
+
+# e2e
+app/wwwroot/app-client/e2e/*.js
+app/wwwroot/app-client/e2e/*.map
 
 # dependencies
 app/wwwroot/app-client/node_modules
@@ -40,11 +48,6 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-
-# e2e
-/e2e/*.js
-/e2e/*.map
-
 # System Files
 .DS_Store
 Thumbs.db
