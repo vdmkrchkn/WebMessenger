@@ -7,12 +7,12 @@ import { Message } from '../messages/message';
 
 @Injectable()
 export class MessageService {
-	private url = 'api/messages';
+	private url = 'messages';
 
   	constructor(private http: HttpClient) { }
 
 	add(msg: Message) {
-		return this.http.post<boolean>('api/add', msg);
+		return this.http.post<boolean>(this.url, msg);
 	}
 
 	getMessages(from?: Date, to?: Date): Observable<Message[]> {

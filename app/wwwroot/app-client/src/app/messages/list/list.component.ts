@@ -9,22 +9,32 @@ import { MessageService } from '../../services/message.service';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
- 	// выбранный пользователь
+ 	// выбранное сообщение
  	selectedMessage: Message;
-	// набор пользователей
+	// набор сообщений
 	messages: Message[];
 
-  	constructor(private msgSrv: MessageService) { }
+  	constructor(private msgSrv: MessageService) {
+		  this.messages = [];
+	   }
 
-  	ngOnInit() {
-		  this.msgSrv.getMessages()
-		  	.subscribe(
-				  data => this.messages = data,
-				  error => console.error(error)
-			)
+	ngOnInit() {
+		this.loadMessages();
 	}
 
 	onSelect(msg: Message) {
 		this.selectedMessage = msg;
+	}
+
+	onAdded(msg: Message) {
+		this.messages.push(msg);
+	}
+
+	loadMessages() {
+		this.msgSrv.getMessages()
+			.subscribe(
+				data => this.messages = data,
+				error => console.error(error)
+			)
 	}
 }

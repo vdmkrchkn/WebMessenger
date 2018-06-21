@@ -1,7 +1,15 @@
+<!-- TODO:
+<msg-add (onAdded)="onAdded($event)"></msg-add> -->
+<!-- <hr> -->
+
 <ul class="messages">
     <li *ngFor="let message of messages"
         [class.selected]="message === selectedmessage"
         (click)="onSelect(message)">
-        <span class="badge">{{message?.userName}}</span>{{message?.text}}
+		<span class="badge">{{message?.userName}}</span>
+		<span class="text">{{message?.text}}</span>
     </li>
 </ul>
+
+<hr>
+<msg-add (onAdded)="onAdded($event)"></msg-add>

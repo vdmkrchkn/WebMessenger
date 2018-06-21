@@ -20,8 +20,7 @@ describe('AddComponent', () => {
 			providers: [
 				{ provide: MessageService, useValue : msgSrvSpy }
 			]
-		})
-		.compileComponents();
+		}).compileComponents();
 	}));
 
 	beforeEach(() => {
@@ -34,13 +33,9 @@ describe('AddComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should init adding message', () => {
-		expect(component.newMsg).toBeDefined();
-	});
-
-	it('should add message', () => {
+	it('should add some message', () => {
 		msgSrvSpy.add.and.returnValue(of(true));
-		const success = component.add();
+		const success = component.add('some');
 		expect(success).toBeTruthy();
 	});
 });

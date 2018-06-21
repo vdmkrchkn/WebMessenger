@@ -41,15 +41,17 @@ namespace app
             {
                 app.UseDeveloperExceptionPage();
 
-				//добавляем сборку через webpack
-				app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-				{
-					HotModuleReplacement = true
-				});
-			}
+                //добавляем сборку через webpack
+                if (Configuration.GetSection("IsNativeWebpackBuilder").Value.Equals(bool.TrueString))                    
+                    app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                    {
+                        HotModuleReplacement = false
+                    });
+            }
 
-			app.UseDefaultFiles();
-			app.UseStaticFiles();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
 			app.UseMvc();
         }
     }

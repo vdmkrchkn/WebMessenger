@@ -1,10 +1,6 @@
 export class Message {
-	constructor(public id: number,
-				public text: string,
+	constructor(public text: string,
 				public userName?: string,
-				public createDateTime?: Date) { }
-
-	isValid(): boolean {
-		return this.text != null && this.text != '';
-	}
+				public createDateTime?: Date)
+	{ }
 }

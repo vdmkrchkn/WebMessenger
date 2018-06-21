@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 import { Message } from '../message';
 import { MessageService } from '../../services/message.service';
@@ -9,16 +9,17 @@ import { MessageService } from '../../services/message.service';
 	styleUrls: ['./add.component.css']
 })
 export class AddComponent {
-	newMsg: Message;
+	@Output() onAdded = new EventEmitter<Message>();
 
-	constructor(private msgSrv: MessageService) {
-		this.newMsg = new Message(-1, '');
-	}
+	constructor(private msgSrv: MessageService) {}
 
-	add(): boolean {
+	add(text: string, userName?: string): boolean {
+		const newMsg = new Message(text, userName);
+		this.onAdded.emit(newMsg);
+
 		let success = false;
 
-		this.msgSrv.add(this.newMsg)
+		this.msgSrv.add(newMsg)
 			.subscribe(
 				(resp) => success = resp,
 				error => console.error(error)

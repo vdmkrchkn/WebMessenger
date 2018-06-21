@@ -1,7 +1,7 @@
 {
 	"compileOnSave": true,
 	"compilerOptions": {
-		 "outDir": "../public/out-tsc",
+		"outDir": "./out-tsc",
 		"sourceMap": true,
 		"declaration": false,
 		"moduleResolution": "node",
