@@ -1,12 +1,11 @@
-using app.Models;
+using app.Models.ViewModels;
 using app.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 
 namespace app.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("chat/[controller]")]
     public class MessagesController : Controller
     {
         #region Dependencies
@@ -24,23 +23,22 @@ namespace app.Controllers
 
         #endregion Ctor
 
-        // GET api/messages
-        [HttpGet]
-        public IEnumerable<Message> Get()
+        // GET messages
+        [HttpGet("{hours}")]
+        public IEnumerable<MessageView> Get(int hours)
         {            
-            return _msgService?.GetMessages(2);
-        }
+            var from = HttpContext.Request.Headers["from"].ToString();
+            var to = HttpContext.Request.Headers["to"].ToString();
 
-        // GET api/messages/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            throw new NotImplementedException("not realized");
-        }
-
-        // POST api/add !!!
+            if (string.IsNullOrEmpty(from) && string.IsNullOrEmpty(to))
+                return _msgService?.GetMessages(hours);            
+            else
+                return _msgService?.GetMessages(from, to);
+        }        
+        
+        // POST messages
         [HttpPost]
-        public IActionResult Add([FromBody]Message newMessage)
+        public IActionResult Add([FromBody]MessageView newMessage)
         {
 			if (newMessage == null)
 			{
@@ -48,6 +46,7 @@ namespace app.Controllers
 			}
 
 			_msgService.Add(newMessage);
+
 			return Ok();
         }        
     }

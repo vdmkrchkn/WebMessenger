@@ -1,4 +1,4 @@
-﻿using app.Models;
+﻿using app.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace app.Context
@@ -17,7 +17,7 @@ namespace app.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {            
-            modelBuilder.Entity<Message>();            
+            modelBuilder.Entity<MessageEntity>();            
 
             base.OnModelCreating(modelBuilder);
         }

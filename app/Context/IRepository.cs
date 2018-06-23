@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using app.Models.Entities;
+using System.Collections.Generic;
 
 namespace app.Context
 {
     public interface IRepository<T>
-        where T : class
+        where T : BaseEntity
     {        
         // получить список сущностей
         IEnumerable<T> GetItemList();

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using app.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Linq;
 namespace app.Context
 {
     public class Repository<T>: IRepository<T>
-        where T : class
+        where T : BaseEntity
     {
         #region Dependencies  
 

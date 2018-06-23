@@ -1,5 +1,6 @@
 using app.Context;
 using app.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -31,6 +32,7 @@ namespace app
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IMessageService, MessageService>();
             // Add framework services.
+            services.AddAutoMapper();
             services.AddMvc();			
         }
 

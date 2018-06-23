@@ -1,4 +1,4 @@
-﻿using app.Models;
+﻿using app.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace app.Services
@@ -8,14 +8,22 @@ namespace app.Services
         /// <summary>
         /// Добавить сообщение.
         /// </summary>
-        /// <param name="message"><see cref="Message"/></param>
-        void Add(Message message);
+        /// <param name="message"><see cref="MessageView"/></param>
+        void Add(MessageView message);
 
         /// <summary>
-        /// Получение сообщений, отправленных за последние часы
+        /// Получение сообщений, отправленных за последние часы.
         /// </summary>
-        /// <param name="hours">часы</param>
-        /// <returns>Коллекция сообщений, упорядоченная по дате и времени отправления</returns>
-        IEnumerable<Message> GetMessages(int hours);
+        /// <param name="hours">кол-во часов</param>
+        /// <returns>Коллекция сообщений</returns>
+        IEnumerable<MessageView> GetMessages(int hours);
+
+        /// <summary>
+        /// Получение сообщений, отправленных за определённый временной интервал.
+        /// </summary>
+        /// <param name="beginDate">начало интервала</param>
+        /// <param name="endDate">конец интервала</param>
+        /// <returns>Коллекция сообщений</returns>
+        IEnumerable<MessageView> GetMessages(string beginDate, string endDate);
     }
 }

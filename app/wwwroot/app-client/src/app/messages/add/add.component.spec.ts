@@ -35,7 +35,7 @@ describe('AddComponent', () => {
 
 	it('should add some message', () => {
 		msgSrvSpy.add.and.returnValue(of(true));
-		const success = component.add('some');
+		const success = component.add();
 		expect(success).toBeTruthy();
 	});
 });
