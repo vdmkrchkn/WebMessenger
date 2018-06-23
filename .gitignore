@@ -7,18 +7,14 @@
 /.vs
 app/bin/
 app/obj/
-app/wwwroot/public
+app/wwwroot/chat
 app/wwwroot/app-client/src/*.js
 app/wwwroot/app-client/src/*/*.js
-app/wwwroot/app-client/src/*.map
-app/wwwroot/app-client/src/*/*.map
-#/dist-server
-#/tmp
-#/out-tsc
+app/wwwroot/app-client/out-tsc
+*.map
 
 # e2e
 app/wwwroot/app-client/e2e/*.js
-app/wwwroot/app-client/e2e/*.map
 
 # dependencies
 app/wwwroot/app-client/node_modules
@@ -52,3 +48,4 @@ testem.log
 .DS_Store
 Thumbs.db
 /app/wwwroot/app-client/package-lock.json
+app/webpack.config.js

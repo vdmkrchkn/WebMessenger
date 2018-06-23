@@ -9,21 +9,29 @@ import { MessageService } from '../../services/message.service';
 	styleUrls: ['./add.component.css']
 })
 export class AddComponent {
+	// сообщения для шаблона html
+	msg: Message;
+	// событие добавления нового сообщения для родительского компонента
 	@Output() onAdded = new EventEmitter<Message>();
 
-	constructor(private msgSrv: MessageService) {}
+	constructor(private msgSrv: MessageService) {
+		this.msg = new Message('');
+	}
 
-	add(text: string, userName?: string): boolean {
-		const newMsg = new Message(text, userName);
+	add(): boolean {
+		const newMsg = new Message(this.msg.text, this.msg.userName);
 		this.onAdded.emit(newMsg);
 
 		let success = false;
 
-		this.msgSrv.add(newMsg)
+		this.msgSrv.add(this.msg)
 			.subscribe(
 				(resp) => success = resp,
 				error => console.error(error)
 			);
+
+		// очистка полей ввода
+		this.msg.clear();
 
 		return success;
 	}

@@ -1,8 +1,9 @@
 <form>
-	<input type="text" name="userName" #userName placeholder="Ваше имя" class="input-text name float-left" />
-	<input type="text" placeholder="Введите текст" class="input-text text float-left"
-		#text (ngModel)="text" [ngModelOptions]="{ standalone: true }" />
-	<div [hidden]="!text.value" (click)="add(text.value, userName.value)" class="btn-send float-left">
+	<input name="userName" placeholder="Ваше имя" class="input-text name float-left"
+		[(ngModel)]="msg.userName"/>
+	<input name="text" placeholder="Введите текст" class="input-text text float-left"
+		[(ngModel)]="msg.text" />
+	<div [hidden]="!msg.isValid()" (click)="add()" class="btn-send float-left">
 		<img src="./assets/email.png" alt="Отправить">
 	</div>
 </form>
