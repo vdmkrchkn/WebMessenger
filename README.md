@@ -1,26 +1,18 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+﻿# Introduction
+Веб-приложение для просмотра активности чата. Пользователю доступны просмотр сообщений за последние 2 часа, участие в переписке путем добавления сообщений, а также просмотр сообщений
+за определенный период.
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+1.	Установить NodeJS, npm.
+2.	Проект выполнен с помощью фреймворков ASP.NET Core 2.0, Angular ^5.2.0, Angular CLI ~1.7.0.
 
 # Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+Скачать исходные коды проекта. Открыть `WebMessenger.sln` в VS 2017. Перейти в папку `app\wwwroot\app-client\` и выполнить `npm i` для восстановления зависимостей.
+Для сборки frontend содержимого необходимо выполнить `npm run-script build`. Эта команда создаст каталог cо статическими веб-файлами. При отсутствии ошибок возможен запуск проекта. 
+Для тестирования клиентской части необходимо выполнить `npm run-script test`.
+Для тестирования серверной части необходимо загрузить проект из каталога `app.Tests`.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
-
-# AppClient
-
+--
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
 ## Development server
