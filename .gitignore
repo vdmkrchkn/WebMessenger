@@ -5,8 +5,11 @@
 
 # compiled output
 /.vs
+/packages
 app/bin/
+app.Tests/bin/
 app/obj/
+app.Tests/obj/
 app/wwwroot/chat
 app/wwwroot/app-client/src/*.js
 app/wwwroot/app-client/src/*/*.js
