@@ -1,6 +1,7 @@
-<!-- TODO:
-<msg-add (onAdded)="onAdded($event)"></msg-add> -->
-<!-- <hr> -->
+<!-- TODO: add msg-add component at top -->
+
+<hr>
+<msg-history (onApplied)="loadMessages($event)" (onReset)="loadMessages()"></msg-history>
 
 <ul class="messages">
     <li *ngFor="let message of messages"

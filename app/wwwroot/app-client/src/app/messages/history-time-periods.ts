@@ -6,4 +6,9 @@ export class HistoryTimePeriods {
 		return this.begin != null && this.begin != ''
 				|| this.end != null && this.end != '';
 	}
+
+	clear() {
+		this.begin = null;
+		this.end = null;
+	}
 }

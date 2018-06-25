@@ -4,10 +4,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Message } from '../messages/message';
+import { HistoryTimePeriods } from '../messages/history-time-periods';
 
 @Injectable()
 export class MessageService {
 	private url = 'messages';
+	hours: number;
 
   	constructor(private http: HttpClient) { }
 
@@ -15,10 +17,21 @@ export class MessageService {
 		return this.http.post<boolean>(this.url, msg);
 	}
 
-	getMessages(from?: Date, to?: Date): Observable<Message[]> {
-		// URL encoded safe search parameter if there is a search periods of dates
-		const options = from && to ?
-			{ params: new HttpParams().set('from', from.toDateString()).set('to', to.toDateString()) } : {};
-		return this.http.get<Message[]>(this.url, options);
+	getMessages(interval?: HistoryTimePeriods): Observable<Message[]> {
+		// case no time intervals
+		if (!interval) {
+			return this.http.get<Message[]>(`${this.url}/${this.hours}`);
+		} else {
+			// URL encoded safe search parameter if there are a search periods of dates
+			let params = new HttpParams();
+
+			if (interval.begin)
+				params = params.set('from', interval.begin);
+
+			if (interval.end)
+				params = params.set('to', interval.end);
+
+			return this.http.get<Message[]>(this.url, { params: params });
+		}
 	}
 }

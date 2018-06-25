@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Message } from '../message';
 import { MessageService } from '../../services/message.service';
+import { HistoryTimePeriods } from '../history-time-periods';
 
 @Component({
   selector: 'msg-list',
@@ -15,8 +16,9 @@ export class ListComponent implements OnInit {
 	messages: Message[];
 
   	constructor(private msgSrv: MessageService) {
+		  msgSrv.hours = 2;
 		  this.messages = [];
-	   }
+	}
 
 	ngOnInit() {
 		this.loadMessages();
@@ -30,8 +32,8 @@ export class ListComponent implements OnInit {
 		this.messages.push(msg);
 	}
 
-	loadMessages() {
-		this.msgSrv.getMessages()
+	loadMessages(times?: HistoryTimePeriods) {
+		this.msgSrv.getMessages(times)
 			.subscribe(
 				data => this.messages = data,
 				error => console.error(error)
