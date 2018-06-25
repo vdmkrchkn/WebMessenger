@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './messages/list/list.component';
 import { AddComponent } from './messages/add/add.component';
 import { MessageService } from './services/message.service';
+import { HistoryComponent } from './messages/history/history.component';
 
 describe('AppComponent', () => {
 	let fixture: ComponentFixture<AppComponent>;
@@ -23,7 +24,8 @@ describe('AppComponent', () => {
 		declarations: [
 			AppComponent,
 			ListComponent,
-			AddComponent
+			AddComponent,
+			HistoryComponent
 		],
 		imports: [
 			FormsModule
@@ -60,5 +62,6 @@ describe('AppComponent', () => {
 	it('should have templates of the list of messages & form 4 adding new one', async(() => {
 		expect(element.innerHTML).toContain('msg-list', 'component template doesn\'t contain list of messages');
 		expect(element.innerHTML).toContain('msg-add');
+		expect(element.innerHTML).toContain('msg-history');
 	}));
 });

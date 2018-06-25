@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { AddComponent } from './messages/add/add.component';
 import { ListComponent } from './messages/list/list.component';
 import { MessageService } from './services/message.service';
+import { HistoryComponent } from './messages/history/history.component';
 
 @NgModule({
   declarations: [
 	AppComponent,
 	AddComponent,
-	ListComponent
+	ListComponent,
+	HistoryComponent
   ],
   imports: [
 	BrowserModule,

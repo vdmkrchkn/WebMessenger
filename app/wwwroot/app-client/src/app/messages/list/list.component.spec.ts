@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { ListComponent } from './list.component';
 import { MessageService } from '../../services/message.service';
 import { AddComponent } from '../add/add.component';
+import { HistoryComponent } from '../history/history.component';
 
 describe('ListComponent', () => {
 	let component: ListComponent;
@@ -16,7 +17,8 @@ describe('ListComponent', () => {
 		TestBed.configureTestingModule({
 			declarations: [
 				ListComponent,
-				AddComponent
+				AddComponent,
+				HistoryComponent
 			],
 			imports: [
 				FormsModule

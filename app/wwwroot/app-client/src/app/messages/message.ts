@@ -1,8 +1,7 @@
 // DTO модель сообщения
 export class Message {
 	constructor(public text: string,
-				public userName?: string,
-				public createDateTime?: Date)
+				public userName?: string)
 	{ }
 
 	// проверка корректности сообщения
@@ -14,6 +13,5 @@ export class Message {
 	clear(): void {
 		this.text = '';
 		this.userName = null;
-		this.createDateTime = null;
 	}
 }
