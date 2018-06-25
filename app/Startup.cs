@@ -43,7 +43,7 @@ namespace app
             {
                 app.UseDeveloperExceptionPage();
 
-                //добавляем сборку через webpack
+                // опциональная сборка via webpack
                 if (Configuration.GetSection("IsNativeWebpackBuilder").Value.Equals(bool.TrueString))                    
                     app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                     {

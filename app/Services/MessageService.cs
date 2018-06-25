@@ -2,6 +2,7 @@
 using app.Models.Entities;
 using app.Models.ViewModels;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,17 @@ namespace app.Services
 
         private readonly IRepository<MessageEntity> _msgRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
         #endregion Dependencies
 
         #region Ctor
 
-        public MessageService(IRepository<MessageEntity> messageRepo, IMapper mapper)
+        public MessageService(IMapper mapper, ILogger<MessageService> logger, IRepository<MessageEntity> messageRepo)
         {
-            _msgRepository = messageRepo;
             _mapper = mapper;
+            _logger = logger;
+            _msgRepository = messageRepo;            
         }
 
         #endregion Ctor
@@ -37,11 +40,14 @@ namespace app.Services
                 messageEntity.CreateDateTime = DateTime.Now;
 
                 _msgRepository.Create(messageEntity);                
-            }
-            catch (Exception)
+            }            
+            catch(AutoMapperConfigurationException e)
             {
-                // TODO: use logger
-                Console.WriteLine("Ошибка добавления сообщения в бд", message);                
+                _logger.LogError(e, "Cannot map transfer object to access object", message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Cannot add new message to database", message);                            
             }
         }
 
@@ -52,15 +58,13 @@ namespace app.Services
                 var fromDt = DateTime.Now.Subtract(TimeSpan.FromHours(hours));
 
                 var msgEntities = _msgRepository?.GetItemList()
-                    .Where(m => fromDt <= m.CreateDateTime)
-                    .OrderBy(m => m.CreateDateTime);
+                    .Where(m => fromDt <= m.CreateDateTime);
 
                 return _mapper.Map<IEnumerable<MessageView>>(msgEntities);
             }
             catch (Exception)
-            {
-                // TODO: use logger
-                Console.WriteLine($"Ошибка получения сообщений из бд за последние {hours} часов");
+            {                
+                _logger.LogError("Cannot get messages from database for hours", hours);                 
                 return null;
             }            
         }
@@ -68,25 +72,25 @@ namespace app.Services
         public IEnumerable<MessageView> GetMessages(string beginDate, string endDate)
         {
             try
-            {
-                var fromDt = DateTime.Parse(beginDate);
-                var endDt = DateTime.Parse(endDate);
+            {                
+                var fromDt = string.IsNullOrEmpty(beginDate) ? DateTime.MinValue
+                    : DateTime.Parse(beginDate);                
+                var endDt = string.IsNullOrEmpty(endDate) ? DateTime.Now
+                    : DateTime.Parse(endDate);
 
                 var msgEntities = _msgRepository?.GetItemList()
-                    .Where(m => fromDt <= m.CreateDateTime && m.CreateDateTime <= endDt)
-                    .OrderBy(m => m.CreateDateTime);                
+                    .Where(m => fromDt <= m.CreateDateTime && m.CreateDateTime <= endDt);                
 
                 return _mapper.Map<IEnumerable<MessageView>>(msgEntities);
             }
             catch(FormatException)
             {
-                Console.WriteLine("Ошибка преобразования входных временных данных", beginDate, endDate);
+                _logger.LogError("Cannot transform datetime periods", beginDate, endDate);                
                 return null;
             }
             catch (Exception)
-            {
-                // TODO: use logger
-                Console.WriteLine($"Ошибка получения сообщений из бд за период с {beginDate} по {endDate}");
+            {                
+                _logger.LogError("Cannot get messages from database for datetime period", beginDate, endDate);                
                 return null;
             }
         }
