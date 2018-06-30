@@ -1,0 +1,39 @@
+:host {
+	margin: 5px;
+}
+
+/* Для расположения элементов в ряд */
+.float-left {
+	float: left;
+}
+
+.date-container {
+	width: 14em;
+	margin-right: .5em;
+	text-align: center;
+}
+
+.date-container > input {
+	border-radius: 5px;
+	border: 1px solid #7a7b7c; /* Параметры рамки */
+	padding: 3px;
+}
+
+.btn {
+	cursor: pointer;
+	margin-top: -3px;
+	margin-right: 0.4em;
+	padding: 5px;
+	border: 1px solid #7a7b7c; /* Параметры рамки */
+	border-radius: 5px;
+}
+
+.btn.apply {
+	background: blue;
+	color: aliceblue;
+}
+
+.btn.reset {
+	background: red;
+	color: aliceblue;
+}

@@ -1,0 +1,16 @@
+<form>
+	<div class="date-container float-left">
+		<label for="from" >Период с</label>
+		<input type="date" name="from" id="from" [(ngModel)]="interval.begin" />
+	</div>
+	<div class="date-container float-left">
+		<label for="to" >Период по</label>
+		<input type="date" name="to" id="to" [(ngModel)]="interval.end" />
+	</div>
+	<div *ngIf="interval.isValid()" (click)="apply()" class="btn apply float-left">
+		Выбрать
+	</div>
+	<div *ngIf="interval.isValid()" (click)="reset()" class="btn reset float-left">
+		Сбросить
+	</div>
+</form>
