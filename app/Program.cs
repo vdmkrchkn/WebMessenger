@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Serilog;
 
 namespace app
 {
@@ -13,6 +14,8 @@ namespace app
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .Build();
+                .ConfigureLogging((hostingContext, logging) => logging.AddSerilog(dispose:true)
+                    //logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"))
+                ).Build();
     }
 }

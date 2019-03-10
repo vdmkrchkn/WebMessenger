@@ -29,15 +29,18 @@ namespace app.Controllers
 
         // GET messages
         [HttpGet("{hours?}")]
+        [ResponseCache(Duration = 300)]
         public IEnumerable<MessageView> Get(int? hours)
         {
             if (hours.HasValue)
+            {
                 return _msgService?.GetMessages(hours.Value);
+            }
             else
-            {                
-                var from = Request?.Query?.FirstOrDefault(p => p.Key == "from").Value;                
-                var to = Request?.Query?.FirstOrDefault(p => p.Key == "to").Value;                    
-                
+            {
+                var from = Request?.Query?.FirstOrDefault(p => p.Key == "from").Value;
+                var to = Request?.Query?.FirstOrDefault(p => p.Key == "to").Value;
+
                 return _msgService?.GetMessages(from, to);
             }
         }        
@@ -48,13 +51,12 @@ namespace app.Controllers
         {
 			if (newMessage == null)
 			{
-                _logger?.LogError("Trying to add an empty message");
+                _logger?.LogWarning("Trying to add an empty message");
 				return BadRequest();
 			}
 
 			_msgService?.Add(newMessage);
 
-            _logger?.LogInformation("New message was added", newMessage);
 			return Ok();
         }        
     }

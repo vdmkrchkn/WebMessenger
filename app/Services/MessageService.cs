@@ -21,11 +21,11 @@ namespace app.Services
 
         #region Ctor
 
-        public MessageService(IMapper mapper, ILogger<MessageService> logger, IRepository<MessageEntity> messageRepo)
+        public MessageService(IRepository<MessageEntity> messageRepo, IMapper mapper, ILogger<MessageService> logger)
         {
+            _msgRepository = messageRepo;
             _mapper = mapper;
             _logger = logger;
-            _msgRepository = messageRepo;            
         }
 
         #endregion Ctor
@@ -39,15 +39,17 @@ namespace app.Services
                 var messageEntity = _mapper.Map<MessageEntity>(message);
                 messageEntity.CreateDateTime = DateTime.Now;
 
-                _msgRepository.Create(messageEntity);                
+                _msgRepository.Create(messageEntity);
+
+                _logger.LogInformation("New message=[{msg}] was added", messageEntity);
             }            
             catch(AutoMapperConfigurationException e)
             {
-                _logger.LogError(e, "Cannot map transfer object to access object", message);
+                _logger.LogError(e, "Cannot map transfer object [{msg}] to access object", message);
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Cannot add new message to database", message);                            
+                _logger.LogError(e, "Cannot add new message={msg} to database", message);                            
             }
         }
 
@@ -60,11 +62,13 @@ namespace app.Services
                 var msgEntities = _msgRepository?.GetItemList()
                     .Where(m => fromDt <= m.CreateDateTime);
 
+                _logger.LogInformation("GetMessages returns {nMsg} messages", msgEntities.Count());
+
                 return _mapper.Map<IEnumerable<MessageView>>(msgEntities);
             }
-            catch (Exception)
+            catch (Exception e)
             {                
-                _logger.LogError("Cannot get messages from database for hours", hours);                 
+                _logger.LogError(e, "Cannot get messages from database for {h} hours", hours);                 
                 return null;
             }            
         }
@@ -79,18 +83,20 @@ namespace app.Services
                     : DateTime.Parse(endDate);
 
                 var msgEntities = _msgRepository?.GetItemList()
-                    .Where(m => fromDt <= m.CreateDateTime && m.CreateDateTime <= endDt);                
+                    .Where(m => fromDt <= m.CreateDateTime && m.CreateDateTime <= endDt);
+
+                _logger.LogInformation("GetMessages returns {nMsg} messages", msgEntities.Count());
 
                 return _mapper.Map<IEnumerable<MessageView>>(msgEntities);
             }
-            catch(FormatException)
+            catch(FormatException fe)
             {
-                _logger.LogError("Cannot transform datetime periods", beginDate, endDate);                
+                _logger.LogError(fe, "Cannot transform {beginDate} or {endDate} to datetime value", beginDate, endDate);                
                 return null;
             }
-            catch (Exception)
+            catch (Exception e)
             {                
-                _logger.LogError("Cannot get messages from database for datetime period", beginDate, endDate);                
+                _logger.LogError(e, "Cannot get messages from database from {beginDate} to {endDate}", beginDate, endDate);                
                 return null;
             }
         }

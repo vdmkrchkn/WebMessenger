@@ -17,5 +17,7 @@ namespace app.Models.Entities
 
         [Required]
         public DateTime CreateDateTime { get; set; }
+
+        public override string ToString() => $"{CreateDateTime},{UserName}: {Text}";
     }
 }
