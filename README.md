@@ -7,16 +7,18 @@
 2.  Выполнить `git clone` для скачивания исходных кодов проекта.
 
 # Build and Test
-Открыть `WebMessenger.sln` в VS 2017. Перейти в папку `app\wwwroot\app-client\` и выполнить `npm i` для восстановления зависимостей.
-Для сборки клиентской части выполнить `npm run-script build`. Эта команда создаст каталог cо статическими веб-файлами. При отсутствии ошибок возможен запуск проекта. Также необходимо создать БД, соответствующей настройкам в `appsettings.json`, создать таблицу 
-`CREATE TABLE messages
-(
-    Id INT,
+Открыть `WebMessenger.sln` в Visual Studio. Перейти в папку `app\wwwroot\app-client\` и выполнить `npm i` для восстановления зависимостей.
+Для сборки клиентской части выполнить `npm run-script build`. Эта команда создаст каталог cо статическими веб-файлами. При отсутствии ошибок возможен запуск проекта. Также необходимо создать БД, соответствующей настройкам в `appsettings.json`, создать таблицу
+
+```
+CREATE TABLE messages (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
     UserName TEXT,
-    Text TEXT,
+    Text TEXT NOT NULL,
     CreateDateTime DATETIME
-);`
-. 
+);
+```
+
 Для тестирования клиентской части необходимо выполнить `npm run-script test`.
 Для тестирования серверной части необходимо загрузить проект из каталога `app.Tests`.
 
