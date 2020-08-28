@@ -29,7 +29,6 @@ namespace app.Controllers
 
         // GET messages
         [HttpGet("{hours?}")]
-        [ResponseCache(Duration = 300)]
         public IEnumerable<MessageView> Get(int? hours)
         {
             if (hours.HasValue)

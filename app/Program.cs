@@ -8,14 +8,14 @@ namespace app
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            CreateWebHostBuild(args).Build().Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuild(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .ConfigureLogging((hostingContext, logging) => logging.AddSerilog(dispose:true)
                     //logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"))
-                ).Build();
+                );
     }
 }
