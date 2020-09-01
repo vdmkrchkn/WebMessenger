@@ -6,12 +6,12 @@ export class Message {
 
 	// проверка корректности сообщения
 	isValid(): boolean {
-		return this.text != null && this.text != '';
+		return !!this.text;
 	}
 
 	// очистка сообщения
 	clear(): void {
-		this.text = '';
+		this.text = null;
 		this.userName = null;
 	}
 }

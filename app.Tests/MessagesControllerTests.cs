@@ -67,7 +67,7 @@ namespace app.Tests
             var res = messagesController.Add(mockMessage);            
 
             // Assert            
-            Assert.IsInstanceOfType(res, typeof(Microsoft.AspNetCore.Mvc.OkResult));
+            Assert.IsInstanceOfType(res, typeof(Microsoft.AspNetCore.Mvc.CreatedAtActionResult));
             mock.Verify(ms => ms.Add(mockMessage));
         }
     }

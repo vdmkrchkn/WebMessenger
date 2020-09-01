@@ -56,7 +56,7 @@ namespace app.Controllers
 
 			_msgService?.Add(newMessage);
 
-			return Ok();
+			return CreatedAtAction(nameof(Add), newMessage);
         }        
     }
 }

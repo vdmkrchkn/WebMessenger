@@ -19,19 +19,18 @@ export class AddComponent {
 	}
 
 	add(): boolean {
-		const newMsg = new Message(this.msg.text, this.msg.userName);
-		this.onAdded.emit(newMsg);
-
-		let success = false;
+		let success: boolean;
 
 		this.msgSrv.add(this.msg)
 			.subscribe(
-				(resp) => success = resp,
+				(resp) => {
+					this.onAdded.emit(resp);
+					// очистка полей ввода
+					this.msg.clear();
+					success = true;
+				},
 				error => console.error(error)
-			);
-
-		// очистка полей ввода
-		this.msg.clear();
+			);		
 
 		return success;
 	}

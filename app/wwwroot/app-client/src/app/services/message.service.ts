@@ -13,12 +13,11 @@ export class MessageService {
 
   	constructor(private http: HttpClient) { }
 
-	add(msg: Message) {
-		return this.http.post<boolean>(this.url, msg);
+	add(msg: Message): Observable<Message> {
+		return this.http.post<Message>(this.url, msg);
 	}
 
 	getMessages(interval?: HistoryTimePeriods): Observable<Message[]> {
-		// case no time intervals
 		if (!interval) {
 			return this.http.get<Message[]>(`${this.url}/${this.hours}`);
 		} else {
@@ -31,7 +30,7 @@ export class MessageService {
 			if (interval.end)
 				params = params.set('to', interval.end);
 
-			return this.http.get<Message[]>(this.url, { params: params });
+			return this.http.get<Message[]>(this.url, { params });
 		}
 	}
 }
