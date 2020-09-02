@@ -1,6 +1,14 @@
 /* Класс, задающий положение окна чата на странице. */
-.main-window {
-    position: absolute;
-	left: 35%;
+.app__chat {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+	width: 40vw;
 	min-width: 500px;
+}
+
+.app__header {
+	margin: auto;
+    padding: 0.25rem;
 }

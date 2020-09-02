@@ -2,15 +2,15 @@
 	margin: 5px;
 }
 
-/* Для расположения элементов в ряд */
-.float-left {
-	float: left;
+.history__dates-container {
+	display: flex;
+	align-items: center;
 }
 
 .date-container {
+	display: flex;
+    align-items: center;
 	width: 14em;
-	margin-right: .5em;
-	text-align: center;
 }
 
 .date-container > input {
@@ -28,12 +28,12 @@
 	border-radius: 5px;
 }
 
-.btn.apply {
+.btn__apply {
 	background: blue;
 	color: aliceblue;
 }
 
-.btn.reset {
+.btn__reset {
 	background: red;
 	color: aliceblue;
 }
