@@ -7,7 +7,10 @@ namespace app.Context
     {
         #region Ctor
              
-        public EFDbContext(DbContextOptions<EFDbContext> options) : base(options){ }
+        public EFDbContext(DbContextOptions<EFDbContext> options) : base(options)
+        {
+            base.Database.Migrate();
+        }
 
         #endregion Ctor
 

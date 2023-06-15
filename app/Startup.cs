@@ -22,18 +22,27 @@ namespace app
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string providerDB = Configuration.GetSection("DBProvider").Value;
-            if (providerDB.Equals("MySQL"))
+            var dbProvider = Configuration.GetConnectionString("Provider");
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<EFDbContext>(optionBuilder =>
             {
-                var connection = Configuration.GetConnectionString("MySqlConnection");
-                services.AddDbContext<EFDbContext>(options => options.UseMySql(connection));
-            }
+                switch (dbProvider)
+                {
+                    case "MSSQL":
+                        optionBuilder.UseSqlServer(connection);
+                        break;
+                    default:
+                        optionBuilder.UseMySql(connection);
+                        break;
+                }
+            });
+            
             // Add client services.
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IMessageService, MessageService>();
             // Add framework services.
             services.AddAutoMapper();
-            services.AddMvc();			
+            services.AddMvc();	
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
