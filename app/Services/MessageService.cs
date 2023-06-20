@@ -1,7 +1,4 @@
-﻿using app.Context;
-using app.Models.Entities;
-using app.Models.ViewModels;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,11 +6,16 @@ using System.Linq;
 
 namespace app.Services
 {
+    using Repositories;
+    using Models.Entities;
+    using Models.ViewModels;
+
     public class MessageService : IMessageService
     {
         #region Dependencies
 
-        private readonly IRepository<MessageEntity> _msgRepository;
+        private readonly IMessageRepository _msgRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
 
@@ -21,9 +23,15 @@ namespace app.Services
 
         #region Ctor
 
-        public MessageService(IRepository<MessageEntity> messageRepo, IMapper mapper, ILogger<MessageService> logger)
+        public MessageService(
+            IMessageRepository messageRepo,
+            IRepository<User> userRepo,
+            IMapper mapper,
+            ILogger<MessageService> logger
+        )
         {
             _msgRepository = messageRepo;
+            _userRepository = userRepo;
             _mapper = mapper;
             _logger = logger;
         }
@@ -36,8 +44,11 @@ namespace app.Services
         {
             try
             {
-                var messageEntity = _mapper.Map<MessageEntity>(message);
-                messageEntity.CreateDateTime = DateTime.Now;
+                var messageEntity = _mapper.Map<Message>(message);
+                var users = _userRepository.GetItemList();
+                messageEntity.User = users.First();
+                messageEntity.Contact = users.Last();
+                messageEntity.SendTime = DateTime.Now;
 
                 _msgRepository.Create(messageEntity);
 
@@ -57,10 +68,11 @@ namespace app.Services
         {
             try
             {
-                var fromDt = DateTime.Now.Subtract(TimeSpan.FromHours(hours));
+                var fromDt = DateTime.Now
+                    .Subtract(TimeSpan.FromHours(hours));
 
                 var msgEntities = _msgRepository?.GetItemList()
-                    .Where(m => fromDt <= m.CreateDateTime);
+                    .Where(m => fromDt <= m.SendTime);
 
                 _logger.LogInformation("GetMessages returns {nMsg} messages", msgEntities.Count());
 
@@ -83,7 +95,7 @@ namespace app.Services
                     : DateTime.Parse(endDate);
 
                 var msgEntities = _msgRepository?.GetItemList()
-                    .Where(m => fromDt <= m.CreateDateTime && m.CreateDateTime <= endDt);
+                    .Where(m => fromDt <= m.SendTime && m.SendTime <= endDt);
 
                 _logger.LogInformation("GetMessages returns {nMsg} messages", msgEntities.Count());
 

@@ -8,7 +8,12 @@ namespace app.Context
     {
         public MessageProfile()
         {
-            CreateMap<MessageView, MessageEntity>(MemberList.None);
+            CreateMap<MessageView, Message>(MemberList.None)
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Text));
+
+            CreateMap<Message, MessageView>(MemberList.None)
+                .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Content))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Contact.Name));
         }
     }
 }

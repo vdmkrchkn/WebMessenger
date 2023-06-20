@@ -1,4 +1,6 @@
 using app.Context;
+using app.Models.Entities;
+using app.Repositories;
 using app.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -39,6 +41,7 @@ namespace app
             
             // Add client services.
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddTransient<IMessageService, MessageService>();
             // Add framework services.
             services.AddAutoMapper();

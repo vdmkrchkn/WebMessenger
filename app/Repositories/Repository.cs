@@ -1,12 +1,13 @@
-﻿using app.Models.Entities;
+﻿using app.Context;
+using app.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace app.Context
+namespace app.Repositories
 {
-    public class Repository<T>: IRepository<T>
+    public class Repository<T> : IRepository<T>
         where T : BaseEntity
     {
         #region Dependencies  
@@ -32,7 +33,7 @@ namespace app.Context
 
         #region Properties
 
-        private DbSet<T> Entities
+        protected DbSet<T> Entities
         {
             get
             {
@@ -56,14 +57,14 @@ namespace app.Context
 
             Entities.Add(entity);
             Save();
-        }        
+        }
 
         public T GetItemById(int id)
         {
             return Entities.Find(id);
-        }        
+        }
 
-        public IEnumerable<T> GetItemList()
+        public virtual IEnumerable<T> GetItemList()
         {
             return Entities.AsEnumerable();
         }
@@ -71,7 +72,7 @@ namespace app.Context
         public void Save()
         {
             _context.SaveChanges();
-        }        
+        }
 
         #endregion IRepository
     }
