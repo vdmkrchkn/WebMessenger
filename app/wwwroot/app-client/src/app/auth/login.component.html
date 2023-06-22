@@ -1,0 +1,14 @@
+<div class="login__container">
+  <form [formGroup]="form">
+    <div class="row">
+      <input type="text" placeholder="name" formControlName="username" />
+    </div>
+    <div class="row">
+      <input type="password" placeholder="password" formControlName="password" />
+    </div>
+    <div class="row button__group">
+      <button (click)="login()">Sign in</button>
+      <button (click)="addUser()">Sign up</button>
+    </div>
+  </form>
+</div>

@@ -20,7 +20,7 @@
     "app": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/messages",
+      "launchUrl": "chat/messages",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

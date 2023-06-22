@@ -1,5 +1,4 @@
 using app.Context;
-using app.Models.Entities;
 using app.Repositories;
 using app.Services;
 using AutoMapper;

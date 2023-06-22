@@ -1,7 +1,7 @@
 {
 	"compileOnSave": true,
 	"compilerOptions": {
-		"outDir": "./out-tsc",
+		"outDir": "../chat/out-tsc",
 		"sourceMap": true,
 		"declaration": false,
 		"moduleResolution": "node",

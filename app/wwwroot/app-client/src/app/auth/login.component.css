@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    height: 100vh;
+    background-color: #0001;
+}
+.login__container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    margin-top: 10px;
+}
+
+.button__group {
+    justify-content: space-evenly;
+}
